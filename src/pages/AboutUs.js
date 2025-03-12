@@ -5,12 +5,12 @@ function AboutUs() {
     <div style={containerStyle}>
       <h1 style={headingStyle}>About Us</h1>
       <img src="path_to_logo_or_image.jpg" alt="Company Logo" style={imageStyle} />
-      
+
       <p style={paragraphStyle}>
         Welcome to Mega City Cab! We are a trusted and reliable transportation service
-        based in Colombo, committed to providing you with top-notch services for your travel needs.
+        based in Colombo, committed to providing you with topnotch services for your travel needs.
       </p>
-      
+
       <h2 style={subHeadingStyle}>Our Mission</h2>
       <p style={paragraphStyle}>
         Our mission is to make commuting in Colombo convenient, safe, and affordable. We aim to
@@ -68,7 +68,7 @@ const imageStyle = {
 };
 
 const listStyle = {
-  listStyleType: 'none', 
+  listStyleType: 'none',
   padding: '0',
   fontSize: '1.1rem',
   color: '#555',
