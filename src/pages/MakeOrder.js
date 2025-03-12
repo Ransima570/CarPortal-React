@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const MakeOrder = () => {
   const [customerDetails, setCustomerDetails] = useState({
@@ -102,13 +102,13 @@ const MakeOrder = () => {
   return (
     <div style={containerStyle}>
       <img
-        src="https://cdn-icons-png.freepik.com/512/8738/8738171.png"
+        src="https://cdn0.iconfinder.com/data/icons/people-lifestyle/100/Taxi-03-512.png"
         alt="Order Form"
         style={imgStyle}
       />
-      
+
       <h2 style={titleStyle}>Customer Details</h2>
-      
+
       <form onSubmit={handleSubmit} style={formStyle}>
         <div style={formGroupStyle}>
           <label style={labelStyle} htmlFor="name">Name:</label>
