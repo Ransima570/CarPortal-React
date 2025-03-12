@@ -1,0 +1,122 @@
+.cars-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.intro-text {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.cars-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.car-item {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: transform 0.3s ease;
+}
+
+.car-item:hover {
+  transform: translateY(-5px);
+}
+
+.car-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.car-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+  max-height: 200px;
+}
+
+.car-details {
+  margin-top: 15px;
+}
+
+.car-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.car-details p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.btn-rent {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.btn-rent:hover {
+  background-color: #45a049;
+}
+
+.btn-rent.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.error-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 1.2rem;
+}
+
+.btn-retry {
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-retry:hover {
+  background-color: #2980b9;
+}
+
+.loading-message,
+.no-cars-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #777;
+}
