@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom'; // Import to get current location
+import { Link, useLocation } from 'react-router-dom';
 import './NavBar.css'; // Ensure you create this file for styling
 
 function NavBar() {
