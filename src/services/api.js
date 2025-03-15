@@ -1,3 +1,4 @@
+// api.js
 import axios from 'axios';
 
 // Create an axios instance with the base URL set to your backend
@@ -20,22 +21,13 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Interceptor for response error handling
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    console.error('API Error:', error.response?.data || error.message);
-    return Promise.reject(error);
-  }
-);
-
-// Fetch available cars
+// Fetch all available cars
 export const getAvailableCars = async () => {
   try {
     const response = await api.get('/api/cars/available-cars');
     return response.data;
   } catch (error) {
-    console.error('Error fetching available cars:', error);
+    console.error('Error fetching available cars:', error.response?.data || error.message);
     throw error;
   }
 };
@@ -43,21 +35,53 @@ export const getAvailableCars = async () => {
 // Fetch car details by ID
 export const getCarById = async (carId) => {
   try {
-    const response = await api.get(`/api/cars/available-cars/${carId}`);
+    const response = await api.get(`/api/cars/${carId}`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching car details:', error);
+    console.error(`Error fetching car details (ID: ${carId}):`, error.response?.data || error.message);
     throw error;
   }
 };
 
-// Create a new booking
-export const saveBooking = async (bookingData) => {
+// Add a new car
+export const addCar = async (carData) => {
   try {
-    const response = await api.post('/api/bookings/save', bookingData);
+    const response = await api.post('/api/cars/add-car', carData);
     return response.data;
   } catch (error) {
-    console.error('Error saving booking:', error);
+    console.error('Error adding car:', error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Update car details
+export const updateCar = async (carId, carData) => {
+  try {
+    const response = await api.put(`/api/cars/update/${carId}`, carData);
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating car (ID: ${carId}):`, error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Delete a car
+export const deleteCar = async (carId) => {
+  try {
+    await api.delete(`/api/cars/delete/${carId}`);
+  } catch (error) {
+    console.error(`Error deleting car (ID: ${carId}):`, error.response?.data || error.message);
+    throw error;
+  }
+};
+
+// Fetch available orders
+export const getOrders = async () => {
+  try {
+    const response = await api.get('/api/orders/available-orders');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching available orders:', error.response?.data || error.message);
     throw error;
   }
 };
@@ -68,39 +92,22 @@ export const createOrder = async (orderData) => {
     const response = await api.post('/api/orders', orderData);
     return response.data;
   } catch (error) {
-    console.error('Error creating order:', error);
+    console.error('Error creating order:', error.response?.data || error.message);
     throw error;
   }
 };
 
-// Fetch orders by user ID
-export const getOrdersByUser = async (userId) => {
+// Create a new booking
+export const saveBooking = async (bookingData) => {
   try {
-    const response = await api.get(`/api/orders/user/${userId}`);
+    const response = await api.post('/api/bookings/save', bookingData);
     return response.data;
   } catch (error) {
-    console.error('Error fetching user orders:', error);
+    console.error('Error saving booking:', error.response?.data || error.message);
     throw error;
   }
 };
 
-// Login function
-export const loginUser = async (credentials) => {
-  try {
-    const response = await api.post('/api/login', credentials);
-    if (response.data.token) {
-      localStorage.setItem('authToken', response.data.token);
-    }
-    return response.data;
-  } catch (error) {
-    console.error('Error logging in:', error);
-    throw error;
-  }
-};
-
-// Logout function
-export const logoutUser = () => {
-  localStorage.removeItem('authToken');
-};
+// Other API calls (authentication, users, etc.) can be added here
 
 export default api;

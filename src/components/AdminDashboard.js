@@ -7,7 +7,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/vehicles')
+      .get('http://localhost:8088/api/vehicles')
       .then((response) => setVehicles(response.data))
       .catch((error) => console.error('Error fetching vehicles:', error));
   }, []);

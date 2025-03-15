@@ -11,7 +11,7 @@ const Booking = () => {
   const handleBooking = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost:8080/api/booking', {
+      .post('http://localhost:8088/api/booking', {
         pickupLocation,
         dropLocation,
         pickupTime,

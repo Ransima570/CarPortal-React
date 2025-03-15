@@ -1,24 +1,28 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// src/components/Login.js
+import React, { useState } from 'react';
+import axios from 'axios';
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault();
-
-    // Hardcoded credentials
-    const hardcodedUsername = "ransima";
-    const hardcodedPassword = "ransima";
-
-    if (username === hardcodedUsername && password === hardcodedPassword) {
-      localStorage.setItem("user", JSON.stringify({ username }));
-      navigate("/choose-role"); // Redirect to ChooseRolePage.js
-    } else {
-      alert("Invalid username or password.");
-    }
+    axios
+      .post('http://localhost:8088/api/login', { username, password })
+      .then((response) => {
+        setRole(response.data.role);
+        localStorage.setItem('user', JSON.stringify(response.data));
+        if (response.data.role === 'Admin') {
+          window.location.href = '/admin-dashboard';
+        } else {
+          window.location.href = '/customer-dashboard';
+        }
+      })
+      .catch((error) => {
+        alert('Login failed. Please check your credentials.');
+      });
   };
 
   return (
