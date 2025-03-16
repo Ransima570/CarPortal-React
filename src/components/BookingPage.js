@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCarById } from '../services/api';
 import axios from 'axios';
-import './BookingPage.css';
+import { motion } from 'framer-motion'; // For animations
+import { FaCheckCircle, FaArrowLeft } from 'react-icons/fa'; // Icons for success popup and back button
 
 const api = axios.create({
   baseURL: 'http://localhost:8089', // Backend API base URL
@@ -87,154 +88,243 @@ const BookingPage = () => {
   };
 
   return (
-    <div className="booking-container">
-      <h2>Exciting Ride Awaits!</h2>
-      <p>Fill in your details below to kickstart your adventure with us! 🚗💨</p>
+    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-purple-50 p-6">
+      {/* Back Button */}
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => window.history.back()}
+        className="flex items-center px-3 py-1.5 mb-6 bg-white rounded-lg shadow-md hover:shadow-lg transition duration-300 text-sm"
+      >
+        <FaArrowLeft className="mr-2" />
+        Back
+      </motion.button>
 
-      <form onSubmit={handleSubmit} className="booking-form">
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            className="form-control"
-            disabled={isSubmitting}
-          />
+      {/* Page Title */}
+      <motion.h2
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-3xl font-bold text-center text-gray-800 mb-8"
+      >
+        Book Your Ride
+      </motion.h2>
+
+      {/* Booking Form */}
+      <motion.form
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        onSubmit={handleSubmit}
+        className="max-w-2xl mx-auto bg-white/70 backdrop-blur-md rounded-xl shadow-lg p-6 border border-white/20"
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Name */}
+          <div className="form-group">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+              Name:
+            </label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Address */}
+          <div className="form-group">
+            <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+              Address:
+            </label>
+            <input
+              type="text"
+              id="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              required
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Phone Number */}
+          <div className="form-group">
+            <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
+              Phone Number:
+            </label>
+            <input
+              type="tel"
+              id="phoneNumber"
+              value={phoneNumber}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Email */}
+          <div className="form-group">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email:
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Vehicle Name */}
+          <div className="form-group">
+            <label htmlFor="vehicle-name" className="block text-sm font-medium text-gray-700 mb-1">
+              Vehicle Name:
+            </label>
+            <input
+              type="text"
+              id="vehicle-name"
+              value={vehicleName}
+              disabled
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100"
+            />
+          </div>
+
+          {/* Destination */}
+          <div className="form-group">
+            <label htmlFor="destination" className="block text-sm font-medium text-gray-700 mb-1">
+              Destination:
+            </label>
+            <select
+              id="destination"
+              value={destination}
+              onChange={(e) => {
+                setDestination(e.target.value);
+                updatePrice(e.target.value); // Update car hire price when destination changes
+              }}
+              required
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            >
+              {destinations.map((dest) => (
+                <option key={dest} value={dest}>{dest}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Car Hire Price */}
+          <div className="form-group">
+            <label htmlFor="carHirePrice" className="block text-sm font-medium text-gray-700 mb-1">
+              Car Hire Price (LKR):
+            </label>
+            <input
+              type="text"
+              id="carHirePrice"
+              value={`LKR ${carHirePrice}`}
+              disabled
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100"
+            />
+          </div>
+
+          {/* Driver Charge */}
+          <div className="form-group">
+            <label htmlFor="driverCharge" className="block text-sm font-medium text-gray-700 mb-1">
+              Driver Charge (LKR):
+            </label>
+            <input
+              type="text"
+              id="driverCharge"
+              value={`LKR ${driverCharge}`}
+              disabled
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100"
+            />
+          </div>
+
+          {/* Total Price */}
+          <div className="form-group">
+            <label htmlFor="totalPrice" className="block text-sm font-medium text-gray-700 mb-1">
+              Total Price (LKR):
+            </label>
+            <input
+              type="text"
+              id="totalPrice"
+              value={`LKR ${totalPrice}`}
+              disabled
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-gray-100"
+            />
+          </div>
+
+          {/* Date */}
+          <div className="form-group">
+            <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">
+              Date:
+            </label>
+            <input
+              type="date"
+              id="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Time */}
+          <div className="form-group">
+            <label htmlFor="time" className="block text-sm font-medium text-gray-700 mb-1">
+              Time:
+            </label>
+            <input
+              type="time"
+              id="time"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              required
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isSubmitting}
+            />
+          </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="address">Address:</label>
-          <input
-            type="text"
-            id="address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-            className="form-control"
-            disabled={isSubmitting}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="phoneNumber">Phone Number:</label>
-          <input
-            type="tel"
-            id="phoneNumber"
-            value={phoneNumber}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-            className="form-control"
-            disabled={isSubmitting}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="form-control"
-            disabled={isSubmitting}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="vehicle-name">Vehicle Name:</label>
-          <input
-            type="text"
-            id="vehicle-name"
-            value={vehicleName}
-            disabled
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="destination">Destination:</label>
-          <select
-            id="destination"
-            value={destination}
-            onChange={(e) => {
-              setDestination(e.target.value);
-              updatePrice(e.target.value); // Update car hire price when destination changes
-            }}
-            required
-            className="form-control"
+
+        {/* Submit Button */}
+        <div className="mt-6">
+          <button
+            type="submit"
+            className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
             disabled={isSubmitting}
           >
-            {destinations.map((dest) => (
-              <option key={dest} value={dest}>{dest}</option>
-            ))}
-          </select>
+            {isSubmitting ? 'Submitting...' : 'Submit'}
+          </button>
         </div>
-        <div className="form-group">
-          <label htmlFor="carHirePrice">Car Hire Price (LKR):</label>
-          <input
-            type="text"
-            id="carHirePrice"
-            value={`LKR ${carHirePrice}`}
-            disabled
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="driverCharge">Driver Charge (LKR):</label>
-          <input
-            type="text"
-            id="driverCharge"
-            value={`LKR ${driverCharge}`}
-            disabled
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="totalPrice">Total Price (LKR):</label>
-          <input
-            type="text"
-            id="totalPrice"
-            value={`LKR ${totalPrice}`}
-            disabled
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="date">Date:</label>
-          <input
-            type="date"
-            id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-            className="form-control"
-            disabled={isSubmitting}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="time">Time:</label>
-          <input
-            type="time"
-            id="time"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
-            required
-            className="form-control"
-            disabled={isSubmitting}
-          />
-        </div>
-        <button type="submit" className="submit-btn" disabled={isSubmitting}>
-          {isSubmitting ? 'Submitting...' : 'Submit'}
-        </button>
-      </form>
+      </motion.form>
 
       {/* Success Popup */}
       {showSuccessPopup && (
-        <div className="popup-overlay">
-          <div className="popup">
-            <h3>Order is Successful!</h3>
-            <p>Your booking has been successfully submitted.</p>
-            <button onClick={() => setShowSuccessPopup(false)}>OK</button>
-          </div>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="bg-white rounded-xl shadow-lg p-6 text-center"
+          >
+            <FaCheckCircle className="text-5xl text-green-500 mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-gray-800 mb-2">Order Successful!</h3>
+            <p className="text-gray-600 mb-4">Your booking has been successfully submitted.</p>
+            <button
+              onClick={() => setShowSuccessPopup(false)}
+              className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+            >
+              OK
+            </button>
+          </motion.div>
         </div>
       )}
     </div>

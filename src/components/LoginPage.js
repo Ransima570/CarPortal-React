@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { auth, googleProvider } from "../firebase/firebaseConfig";
-import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { FcGoogle } from "react-icons/fc";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -11,13 +11,13 @@ const LoginPage = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const hardcodedUsername = "sachin";
+  const hardcodedUsername = "ransima";
   const hardcodedPassword = "qaz@123";
 
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
+    setError('');
 
     if (email === hardcodedUsername && password === hardcodedPassword) {
       setLoading(false);
@@ -41,64 +41,51 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-900 to-blue-800 px-4">
-      <motion.div 
-        className="flex flex-col md:flex-row items-center gap-10 p-10 w-full max-w-4xl bg-white shadow-2xl rounded-xl"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="text-gray-800 max-w-md">
-          <h1 className="text-5xl font-bold mb-4 text-indigo-900">Mega City <br /> <span className="text-blue-500">Cab Service</span></h1>
-          <p className="text-gray-600 leading-relaxed">
-            Mega City Cab Service is Sri Lanka's No. 1 Cab Service and online booking platform. We offer reliable and affordable transportation solutions to meet all your travel needs. Book your ride with us today and experience the best in class service.
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-green-700 to-green-500">
+      <div className="flex flex-col md:flex-row items-center gap-10 p-10">
+        <div className="text-black max-w-md"> {/* Changed text color to black */}
+          <h1 className="text-5xl font-bold mb-4 text-blue-500">Mega City <br /> <span className="text-yellow-300">Cab Service</span></h1>
+          <p className="text-gray-800"> {/* Changed text color to black */}
+            Mega City Cab Service is Sri Lanka's No. 1 Cab Service and online booking platform. We offer reliable and affordable transportation solutions to meet all your travel needs. Book your ride with us today and experience the best-in-class service.
           </p>
         </div>
-        <motion.div 
-          className="bg-gray-100 p-8 rounded-2xl shadow-lg w-full max-w-sm"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
+        <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-sm">
           <form className="space-y-6" onSubmit={handleEmailLogin}>
             <input 
               type="email" 
               placeholder="Email address" 
-              className="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none" 
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-black" // Added text-black
               value={email} 
               onChange={(e) => setEmail(e.target.value)} 
             />
             <input 
               type="password" 
               placeholder="Password" 
-              className="w-full p-3 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none" 
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-black" // Added text-black
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
-            <motion.button 
+            <button 
               type="submit" 
-              className="w-full py-3 bg-blue-500 text-white rounded-md font-semibold hover:bg-blue-600 shadow-md transition duration-300"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="w-full py-3 bg-green-600 text-white rounded-[15px] font-semibold hover:bg-green-700 transition duration-300" 
               disabled={loading}
             >
-              {loading ? 'Loading...' : 'SIGN IN'}
-            </motion.button>
+              {loading ? "Loading..." : "SIGN IN"}
+            </button>
           </form>
-          <p className="text-center text-gray-500 my-4">or sign in with:</p>
-          <div className="flex justify-center gap-4">
-            <motion.button 
+          <p className="text-center text-gray-800 my-4">or sign in with:</p> {/* Changed text color to black */}
+          <div className="flex justify-center">
+            <button 
               onClick={handleGoogleLogin} 
-              className="text-blue-500 font-semibold hover:underline"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded-[15px] shadow-md text-gray-800 font-semibold hover:bg-gray-100 transition duration-300" // Changed text color to black
               disabled={loading}
             >
-              {loading ? 'Loading...' : 'Sign in with Google'}
-            </motion.button>
+              <FcGoogle className="text-2xl" /> {loading ? "Loading..." : "Sign in with Google"}
+            </button>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </div>
   );
 };

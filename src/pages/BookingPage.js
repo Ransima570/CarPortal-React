@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCarById, saveBooking } from '../services/api';
-import './BookingPage.css';
-
 
 const BookingPage = () => {
   const { carId } = useParams();
@@ -19,7 +17,10 @@ const BookingPage = () => {
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
+        console.log("Fetching car details for ID:", carId);
         const carDetails = await getCarById(carId);
+        console.log("Car details received:", carDetails);
+        
         if (carDetails && carDetails.make && carDetails.model) {
           setVehicleName(`${carDetails.make} ${carDetails.model}`);
         } else {
@@ -30,6 +31,7 @@ const BookingPage = () => {
         setVehicleName('Unknown Vehicle');
       }
     };
+
     fetchCarDetails();
   }, [carId]);
 
@@ -37,56 +39,61 @@ const BookingPage = () => {
     event.preventDefault();
     setLoading(true);
     setMessage('');
+    
     const bookingData = { name, address, phone, email, vehicleName, time, date, carId };
 
+    console.log("Submitting booking:", bookingData);
+
     try {
-      await saveBooking(bookingData);
-      setMessage('✅ Booking successful!');
+      const response = await saveBooking(bookingData);
+      console.log("Booking response:", response);
+      setMessage('Booking successful!');
     } catch (error) {
-      setMessage('❌ Failed to save booking. Please try again.');
+      console.error("Booking error:", error.response?.data || error.message);
+      setMessage('Failed to save booking. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center p-6 max-w-lg mx-auto bg-white shadow-lg rounded-xl">
-      <h2 className="text-2xl font-bold mb-4">Book Your Car</h2>
-      <p className="text-gray-600 mb-6 text-center">Fill in your details to complete the booking process.</p>
+    <div className="booking-container">
+      <h2>Customer Details</h2>
+      <p>Please fill in your details to complete the rental process.</p>
+      
+      {message && <p>{message}</p>}
 
-      {message && <p className="mb-4 text-center text-lg font-medium text-blue-600">{message}</p>}
-
-      <form onSubmit={handleSubmit} className="w-full">
-        <div className="mb-4">
-          <label className="block text-gray-700">Name</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter your name" className="w-full p-2 border rounded-lg" required />
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="name">Name:</label>
+          <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Address</label>
-          <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Enter your address" className="w-full p-2 border rounded-lg" required />
+        <div>
+          <label htmlFor="address">Address:</label>
+          <input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} required />
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Phone</label>
-          <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Enter your phone number" className="w-full p-2 border rounded-lg" required />
+        <div>
+          <label htmlFor="phone">Phone Number:</label>
+          <input type="tel" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Email</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" className="w-full p-2 border rounded-lg" required />
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Vehicle</label>
-          <input type="text" value={vehicleName} disabled className="w-full p-2 border rounded-lg bg-gray-200" />
+        <div>
+          <label htmlFor="vehicle-name">Vehicle Name:</label>
+          <input type="text" id="vehicle-name" value={vehicleName} onChange={(e) => setVehicleName(e.target.value)} required />
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Date</label>
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="w-full p-2 border rounded-lg" required />
+        <div>
+          <label htmlFor="date">Date:</label>
+          <input type="date" id="date" value={date} onChange={(e) => setDate(e.target.value)} required />
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Time</label>
-          <input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="w-full p-2 border rounded-lg" required />
+        <div>
+          <label htmlFor="time">Time:</label>
+          <input type="time" id="time" value={time} onChange={(e) => setTime(e.target.value)} required />
         </div>
-        <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400" disabled={loading}>
-          {loading ? 'Submitting...' : 'Confirm Booking'}
+        <button type="submit" disabled={loading}>
+          {loading ? 'Submitting...' : 'Submit'}
         </button>
       </form>
     </div>

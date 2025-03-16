@@ -1,74 +1,160 @@
-/* Orders.css */
-.orders-container {
-  max-width: 1200px;
-  margin: 20px auto;
+/* AvailableCars.css */
+
+.cars-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .page-title {
+    font-size: 2rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .intro-text {
+    font-size: 1.1rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .cars-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .car-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    width: 280px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .car-name {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0 0 10px;
+  }
+  
+  .car-details p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  .btn-rent {
+    background-color: #28a745;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-rent:hover {
+    background-color: #218838;
+  }
+  
+  .loading-message {
+    font-size: 1.2rem;
+    text-align: center;
+    color: #888;
+  }
+  
+  .error-message {
+    font-size: 1.2rem;
+    text-align: center;
+    color: red;
+  }
+  
+  .no-cars-message {
+    font-size: 1.2rem;
+    text-align: center;
+    color: #888;
+  }
+  /* AvailableCars.css */
+
+.cars-container {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
   padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .page-title {
-  text-align: center;
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 2rem;
   color: #333;
-  margin-bottom: 10px;
 }
 
 .intro-text {
-  text-align: center;
-  color: #666;
-  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #777;
 }
 
-.orders-list {
+.cars-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
-  justify-content: center;
+  margin-top: 30px;
 }
 
-.order-card {
-  background: #fff;
-  border-radius: 12px;
+.car-item {
+  background-color: #f4f4f4;
   padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-.order-card:hover {
-  transform: translateY(-5px);
+.car-item:hover {
+  transform: scale(1.05);
 }
 
-.order-title {
-  font-size: 20px;
+.car-details {
+  font-size: 1rem;
+  color: #555;
+}
+
+.car-name {
+  font-size: 1.5rem;
   font-weight: bold;
   color: #333;
-  margin-bottom: 10px;
 }
 
-.order-info p {
-  font-size: 14px;
-  color: #555;
-  margin: 4px 0;
+strong {
+  font-weight: bold;
+  color: #333;
 }
 
-.btn-download-bill {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
+.btn-rent {
+  margin-top: 20px;
   background-color: #28a745;
   color: white;
-  font-size: 14px;
-  font-weight: bold;
+  padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
-.btn-download-bill:hover {
+.btn-rent:hover {
   background-color: #218838;
+}
+
+.loading-message,
+.no-cars-message,
+.error-message {
+  color: #ff0000;
+  font-size: 1.2rem;
 }
