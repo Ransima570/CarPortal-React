@@ -6,7 +6,7 @@ function HomePage() {
   return (
     <div 
       className="home-container h-screen flex flex-col items-center justify-center text-white text-center bg-cover bg-center"
-      style={{ backgroundImage: "url('https://images.unsplash.com/photo-1590905652146-8e169292f5de?q=80&w=2068&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')" }}
+      style={{ backgroundImage: "url('https://images.unsplash.com/photo-1649261360434-cd8b52456276?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }}
     >
       <motion.div 
         className="bg-black bg-opacity-50 p-6 rounded-lg flex flex-col items-center"
@@ -15,7 +15,7 @@ function HomePage() {
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         <motion.img 
-          src="https://www.citypng.com/public/uploads/preview/round-logo-icon-of-taxi-service-png-701751694967529hk7gzdhbzx.png" 
+          src="https://cdn-icons-png.flaticon.com/512/3448/3448637.png" 
           alt="Mega City Cab Logo" 
           className="w-20 h-20 mb-4"
           initial={{ opacity: 0, y: -20 }}

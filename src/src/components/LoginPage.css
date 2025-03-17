@@ -1,0 +1,133 @@
+/* Full-page background */
+.login-container {
+  background: url("https://images.unsplash.com/photo-1500298281307-dcc46bf727d8?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") no-repeat center center/cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Dark overlay for readability */
+.background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Card container */
+.login-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Centered Logo */
+.login-logo {
+  width: 100px;
+  margin: 0 auto 1rem;
+  display: block;
+}
+
+/* Bold and centered headers */
+.login-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.login-subtitle {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Inputs */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.input-group label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+  text-align: center;
+}
+
+/* Buttons */
+.login-button, .google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.login-button {
+  background: #007bff;
+  color: white;
+}
+
+.login-button:hover {
+  background: #0056b3;
+}
+
+.google-button {
+  background: white;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+}
+
+.google-button:hover {
+  background: #f8f8f8;
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  background: #ffe5e5;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Footer */
+.login-footer {
+  margin-top: 10px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
+  .login-card {
+    width: 90%;
+  }
+}
